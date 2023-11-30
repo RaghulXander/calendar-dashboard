@@ -1,0 +1,15 @@
+# Ignore auto-generated typings for css
+**/*.scss.d.ts
+
+# Folders to ignore
+/public
+/build
+/.yarn
+/node_modules
+
+# Do not format markdown files
+*.md
+
+# Do not format .css or .scss files (we use StyleLint)
+*.css
+*.scss

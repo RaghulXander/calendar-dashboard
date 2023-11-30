@@ -1,0 +1,59 @@
+@import "./variables";
+
+@font-face {
+	font-family: 'avenirblack';
+	src: url("./fonts/avenir_black.woff2") format("woff2"),url("./fonts/avenir_black.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenirheavy';
+	src: url("./fonts/avenir_heavy.woff2") format("woff2"),url("./fonts/avenir_heavy.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenir_regularregular';
+	src: url("./fonts/avenir_regular.woff2") format("woff2"),url("./fonts/avenir_regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenirlight';
+	src: url("./fonts/avenir_light.woff2") format("woff2"),url("./fonts/avenir_light.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenirmedium';
+	src: url("./fonts/avenir_medium.woff2") format("woff2"),url("./fonts/avenir_medium.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+html {
+  font-size: 16px; /* Set a base font size */
+}
+
+body {
+	background: #f8f8f8;
+	  font-size: 1rem; /* 1rem equals the base font size (16px in this case) */
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: $color_1;
+	font-family: $font-family_1;
+	font-size: 14px;
+}
+p {
+	color: $color_1;
+	font-size: 16px;
+	line-height: 26px;
+}
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
+}

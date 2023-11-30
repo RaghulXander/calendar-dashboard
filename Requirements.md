@@ -1,0 +1,7 @@
+You have been given a Frontend Assignment Brief, where you will develop a React JS web application. This project should follow best practices and feature a modular structure to support multiple user roles, including super admin functions. A key feature of your application will be an innovative calendar, allowing users to switch views (monthly, daily, yearly), create events, and visualize activities. You will use a Dummy API for content and organize your SCSS code per component, with a global file for shared styles. Ensure proper maintenance of layout, components, routes, auth guard, and middleware.
+
+This application will start with a single "Calendar" page. Your task is to focus solely on creating this calendar page.
+
+The application will utilize local IndexedDB for API advantages, ensuring robust storage and offline access for user events. This calendar integration aims to provide a dynamic, user-friendly and versatile platform for event management.
+
+Your responsibility is to develop a calendar in line with the provided design, focusing on functionality such as adding, selecting, and viewing events within the calendar. API integration isn`t required, as JSON storage in IndexedDB will handle data management.

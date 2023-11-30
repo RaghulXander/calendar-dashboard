@@ -1,0 +1,53 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fills the entire height of the page */
+
+  .weekdays {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .weekday {
+		height: 50px;
+		align-items: center;
+		padding: 10px;
+		    font-size: 12px;
+		line-height: 20px;
+		color: #6E0D88;
+		font-weight: 500;
+
+		.weekdate {
+			font-size: 18px;
+			line-height: 26px;
+			color: #E1003E;
+			font-weight: 500;
+			margin-right: 5px;
+		}
+	}
+  }
+
+  .hours-grid {
+    display: flex;
+	flex-direction: column;
+    justify-content: stretch; /* Enable horizontal scrolling */
+    flex-grow: 1; /* Allow this section to expand and take remaining space */
+
+    .hour {
+      display: flex;
+      flex-direction: row;
+	  min-height: 130px;
+          width: 100%;/* Adjust as needed */
+      /* Add styles for individual hour blocks */
+	  .hour-slot-time,
+      .hour-slot {
+        flex-grow: 1;
+        border: 1px solid #ccc; /* Example border */
+        /* Add styles for each hour slot */
+      }
+
+	  .hour-slot-time {
+		max-width: 60px;
+	  }
+    }
+  }
+}

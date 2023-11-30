@@ -1,0 +1,45 @@
+/* Dropdown component styles */
+
+.dropdown-container {
+  /* Dropdown container styles */
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.selected-value {
+  /* Selected value styles */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  min-width: 80px;
+
+  /* Chevron icon styles */
+  .chevron {
+    margin-left: 8px;
+  }
+}
+
+.options {
+  position: absolute;
+  top: 100%; // Position the options below the dropdown
+  left: 0;
+  width: 100%; // Full width of the dropdown container
+  background-color: #fff; // Background color
+  border: 1px solid #ccc; // Border for visibility
+  z-index: 9999; // Ensure the options appear above other elements
+  
+  // Define styles for individual options
+  & .option {
+    padding: 8px 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0; // Background color on hover
+    }
+  }
+}
