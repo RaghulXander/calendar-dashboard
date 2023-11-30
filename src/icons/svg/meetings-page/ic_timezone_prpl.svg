@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="251.851" height="231.164" viewBox="0 0 251.851 231.164">
+  <g id="Group_20537" data-name="Group 20537" transform="translate(-10721.966 -358)">
+    <g id="Group_20536" data-name="Group 20536" transform="translate(10721.966 358)">
+      <g id="Group_20535" data-name="Group 20535" transform="translate(0 0)">
+        <path id="Path_100256" data-name="Path 100256" d="M245.222,131.834c18.663-33.411-4.188-73.538-42.244-77.328L189.09,53.122A40.079,40.079,0,0,1,162.4,39.286C136.237,9.922,87.523,17.173,71.486,52.451A38.668,38.668,0,0,1,51.6,71.8L32.036,80.334C.85,93.93-9.723,131.655,9.975,158.635l12.414,17a36.987,36.987,0,0,1,5.85,12.133L34.4,210.433c8.444,31.046,43.658,47.822,74.395,34.774l2.632-1.117a41.535,41.535,0,0,1,25.053-2.271l40.359,8.986c39.319,8.755,73.976-25.369,65.2-62.877l-5.108-21.816a36.367,36.367,0,0,1,3.711-26.076Z" transform="translate(0 -21.028)" fill="#fff7f9"/>
+      </g>
+    </g>
+    <g id="Icon_ionic-md-stopwatch" data-name="Icon ionic-md-stopwatch" transform="translate(10779.539 393.284)">
+      <path id="Path_100253" data-name="Path 100253" d="M16.312,59.151H28.539V12.375H16.312Z" transform="translate(46.612 41.958)" fill="#e1003e"/>
+      <g id="Group_20532" data-name="Group 20532" transform="translate(0 0)">
+        <path id="Path_100254" data-name="Path 100254" d="M127.527,33.338l11.021-11.021L126.4,10.167l-11.02,11.021a68.733,68.733,0,1,0,12.15,12.15ZM111.2,113.452a53.7,53.7,0,1,1,15.728-37.97A53.345,53.345,0,0,1,111.2,113.452Z" transform="translate(-4.5 16.161)" fill="#6e1588"/>
+        <path id="Path_100255" data-name="Path 100255" d="M13.5,2.25H59.322V19.433H13.5Z" transform="translate(32.322 -2.25)" fill="#e1003e"/>
+      </g>
+    </g>
+  </g>
+</svg>

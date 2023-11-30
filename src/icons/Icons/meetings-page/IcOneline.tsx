@@ -1,0 +1,15 @@
+// THIS IS AUTO GENERATED
+import * as React from "react";
+import { IconProps } from "../..";
+const SvgIcOneline = (props: IconProps): JSX.Element => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={props.size ?? 16}
+		height={props.size ?? 16}
+		viewBox="0 0 12 2"
+		aria-hidden={props.ariaHidden ?? true}
+	>
+		<path fill="none" stroke="#a3a3a3" strokeWidth={2} d="M0 1h12" data-name="Line 994" />
+	</svg>
+);
+export default SvgIcOneline;
