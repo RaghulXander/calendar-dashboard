@@ -1,33 +1,33 @@
-type Defaults = {
-	id: number,
-	prefix: string,
-	name: string,
+interface Defaults {
+	id: number;
+	prefix: string;
+	name: string;
 }
 
 export interface Day extends Defaults {
-	type: "Day"
-};
+	type: 'Day';
+}
 
 export interface Month extends Defaults {
-	type: "Month"
-};
+	type: 'Month';
+}
 
 export interface Year {
-	type: "Year",
-	id: number,
-	name: string,
-};
+	type: 'Year';
+	id: number;
+	name: string;
+}
 
 export interface Week {
-	type: "Week",
-	id: number,
-	month: number,
-	year: number
-};
+	type: 'Week';
+	id: number;
+	month: number;
+	year: number;
+}
 
-export type Actions = "Next" | "Previous";
+export type Actions = 'Next' | 'Previous';
 
-export type CalendarType = "Day" | "Week" | "Year" | "Month" 
+export type CalendarType = 'Day' | 'Week' | 'Year' | 'Month';
 
 export interface Calendar {
 	calendarType: CalendarType;
@@ -38,6 +38,6 @@ export interface Calendar {
 	currentWeek: Week;
 }
 
-export type StateContext<T> = {
+export interface StateContext<T> {
 	state: T;
-};
+}

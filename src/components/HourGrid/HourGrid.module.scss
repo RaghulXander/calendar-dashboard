@@ -1,0 +1,36 @@
+    .hour-slot {
+		flex-grow: 1;
+		width: 100%;
+        border: 1px solid #ccc;
+		display: flex;
+		flex-direction: column;
+    	justify-content: space-around;
+
+		.slot-partition {
+			display: flex;
+			height: calc(100%/4);
+			justify-content: center;
+    		align-items: center;
+
+			  &:hover {
+				cursor: pointer;
+				background-color: lightgray;
+			}
+		}
+
+		 &-unavailable {
+			// Styles for unavailable slots
+			.slot-partition {
+			// Styles for unavailable slot partitions
+			}
+		}
+      }
+
+	 .modal {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+	border-radius: 20px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }

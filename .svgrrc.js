@@ -3,26 +3,26 @@ module.exports = {
 	expandProps: false,
 	typescript: true,
 	svgProps: {
-		width: "{props.size ?? 16}",
-		height: "{props.size ?? 16}",
-		"aria-hidden": "{props.ariaHidden ?? true}",
+		width: '{props.size ?? 16}',
+		height: '{props.size ?? 16}',
+		'aria-hidden': '{props.ariaHidden ?? true}'
 	},
 	svgoConfig: {
 		plugins: [
 			{
-			name: 'preset-default',
-			params: {
-				overrides: {
-				// disable plugins
-				removeViewBox: false,
-				},
-			},
-			},
-		],
+				name: 'preset-default',
+				params: {
+					overrides: {
+						// disable plugins
+						removeViewBox: false
+					}
+				}
+			}
+		]
 	},
-	template({ componentName, jsx }, { tpl  }) {
+	template({ componentName, jsx }, { tpl }) {
 		//const typeScriptTpl = template.smart({ plugins: ["typescript"], preserveComments: true });
-		return tpl `
+		return tpl`
 		// THIS IS AUTO GENERATED
 		import * as React from 'react';
 		import { IconProps } from "../..";
@@ -31,5 +31,5 @@ module.exports = {
 
 		export default ${componentName};
 	`;
-	},
+	}
 };

@@ -1,0 +1,14 @@
+@import "../../sass-helpers/variables";
+
+.calendar-page {
+	background-color: $background-color_1;
+	.container {
+		.months-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			background-color: #fff;
+		}
+	}
+}
+

@@ -1,6 +1,6 @@
-//export * from "./Icons/meetings-page";
-//export * from "./Icons/menu";
-//export * from "./Icons/my-calender";
+// export * from "./Icons/meetings-page";
+// export * from "./Icons/menu";
+// export * from "./Icons/my-calender";
 
 export interface IconProps {
 	/**

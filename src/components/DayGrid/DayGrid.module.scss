@@ -1,22 +1,39 @@
-.calendar {
+.day-grid {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Fills the entire height of the page */
 
   .weekdays {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    .weekday {
+	.single-day {
 		height: 50px;
 		align-items: center;
 		padding: 10px;
-		    font-size: 12px;
+		font-size: 16px;
+		line-height: 24px;
+		color: #6E0D88;
+		font-weight: 600;
+	}
+	 .week-day:first-child {
+		width: 20px;
+		flex: 1;
+		max-width: 80px;;
+	 }
+    .week-day {
+		height: 50px;
+		flex: 2;
+		align-items: center;
+		padding: 10px;
+		font-size: 12px;
 		line-height: 20px;
 		color: #6E0D88;
 		font-weight: 500;
+		width: calc(100%/7 - 50px);
+		text-align: center;
 
-		.weekdate {
+		.week-date {
 			font-size: 18px;
 			line-height: 26px;
 			color: #E1003E;
@@ -26,28 +43,35 @@
 	}
   }
 
-  .hours-grid {
-    display: flex;
-	flex-direction: column;
-    justify-content: stretch; /* Enable horizontal scrolling */
-    flex-grow: 1; /* Allow this section to expand and take remaining space */
+    .hours-grid {
+		display: flex;
+		flex-direction: column;
+		justify-content: stretch; /* Enable horizontal scrolling */
+		flex-grow: 1; /* Allow this section to expand and take remaining space */
 
-    .hour {
+		    .hour {
       display: flex;
       flex-direction: row;
 	  min-height: 130px;
           width: 100%;/* Adjust as needed */
-      /* Add styles for individual hour blocks */
-	  .hour-slot-time,
-      .hour-slot {
-        flex-grow: 1;
-        border: 1px solid #ccc; /* Example border */
-        /* Add styles for each hour slot */
-      }
-
+     
 	  .hour-slot-time {
-		max-width: 60px;
-	  }
+        flex-grow: 1;
+        border: 1px solid #ccc;
+		display: flex;
+		flex-direction: column;
+    	justify-content: space-around;
+		min-width: 80px;
+		justify-content: flex-start;
+    	align-items: center;
+		font-size: 12px;
+		line-height: 18px;
+		color: #000;
+		font-weight: 500;
+		display: flex;
+		border-left: 0;
+		padding: 10px 0;
+      }
     }
-  }
+	}
 }

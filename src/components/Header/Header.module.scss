@@ -68,7 +68,10 @@
     gap: 0 6px;
 	align-items: center;
 
+	.print,
     .time {
+		display: flex;
+		align-items: center;
       > span {
         margin: 0 6px;
 		font-size: 12px;
