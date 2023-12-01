@@ -59,7 +59,12 @@ export const InvitePopup: React.FC<{ event: Event | undefined; date: Date; time:
 
 	const onSave = async () => {
 		const [start, end] = getTwoDatesWithGap(date);
-		await eventActions.createEvent({ date, start, end, name: inputData }, onSuccess);
+		if (event?.id) {
+			await eventActions.createEvent({ date, start, end, name: inputData }, onSuccess);
+		} else {
+			await eventActions.createEvent({ date, start, end, name: inputData }, onSuccess);
+		}
+		
 	};
 
 	const onDelete = async () => {

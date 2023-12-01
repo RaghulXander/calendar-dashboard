@@ -64,6 +64,7 @@
 				//padding: 10px 20px;
 				padding         : 4px;
 				position        : relative;
+				cursor          : pointer;
 
 				&.sunday {
 					color           : #E1003E;
@@ -155,9 +156,16 @@
 				}
 
 				span {
-					position: relative;
-					top     : 0;
-					right   : 0;
+					position       : relative;
+					top            : 0;
+					right          : 0;
+					width          : 24px;
+					height         : 24px;
+					text-align     : center;
+					display        : flex;
+					justify-content: center;
+					align-items    : center;
+					max-height     : 24px;
 				}
 
 				&.active span:first-child {
@@ -175,6 +183,18 @@
 				&.sunday {
 					color           : #BEBEBE;
 					background-color: transparent;
+				}
+
+				&:hover {
+					justify-content: center;
+					display        : flex;
+					align-items    : center;
+
+					span {
+						background-color: #E1003E;
+						color           : #fff;
+						border-radius   : 100%;
+					}
 				}
 			}
 		}

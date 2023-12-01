@@ -101,6 +101,11 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 										[`${styles.active}`]: isToday(currentDate),
 										[`${styles.sunday}`]: dayIndex === 0
 									})}
+									onClick={() => {
+										if ( typeof day === 'object') {
+											calendarActions.updateCalendarType("Day", new Date(day));
+										}
+									}}
 								>
 									<span className={classNames(styles.currentDate)}>{currentDate}</span>
 									{getFilteredEvents(day).length > 0 ? <span className={classNames(styles.eventMarker)} /> : null}
