@@ -57,7 +57,14 @@ function CalendarPage() {
 			case LayoutTypes.MONTH:
 				return <MonthGrid selectedMonth={state.currentMonth} selectedYear={state.currentYear} />;
 			case LayoutTypes.WEEK:
-				return <DayGrid days={generateWeekDays} currentDate={state.currentDate} isWeekly onHeaderClick={calendarActions.updateCalendarType} />;
+				return (
+					<DayGrid
+						days={generateWeekDays}
+						currentDate={state.currentDate}
+						isWeekly
+						onHeaderClick={calendarActions.updateCalendarType}
+					/>
+				);
 
 			case LayoutTypes.YEAR:
 			default:

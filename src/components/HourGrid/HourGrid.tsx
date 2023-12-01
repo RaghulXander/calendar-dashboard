@@ -11,7 +11,7 @@ export const HourGrid: React.FC<{
 	events: Event[];
 }> = (props) => {
 	const { hour, day } = props;
-	const [selectedHour, setSelectedHour] = useState<string | null>(null);
+	const [selectedHour, setSelectedHour] = useState<string>("");
 	const [showModal, setShowModal] = useState(false);
 	const [position, setPosition] = useState({ top: 0, left: 0 });
 	const slotRef = useRef<HTMLDivElement>(null);
@@ -20,14 +20,6 @@ export const HourGrid: React.FC<{
 		const formattedHour = hour.toString().padStart(2, '0');
 		const formattedMinutes = minutes.toString().padStart(2, '0');
 		setSelectedHour(`${formattedHour}:${formattedMinutes}`);
-	};
-
-	const handleClick = () => {
-		setShowModal(true);
-	};
-
-	const handleCloseModal = () => {
-		setShowModal(false);
 	};
 
 	useEffect(() => {
@@ -46,19 +38,6 @@ export const HourGrid: React.FC<{
 		return `${formattedHour}:${formattedMinutes}`;
 	};
 
-	const modalContent = (
-		<div className={styles.modal} style={{ top: position.top, left: position.left }}>
-			<InvitePopup onClose={handleCloseModal} />
-		</div>
-	);
-
-	const renderPortal = () => {
-		if (showModal && position.top && position.left) {
-			return createPortal(modalContent, document.body);
-		}
-		return null;
-	};
-
 	const getEventsForSlot = useCallback(
 		(hour: number, minute: number) => {
 			return props.events.filter((event) => {
@@ -71,14 +50,30 @@ export const HourGrid: React.FC<{
 		[props.events]
 	);
 
-	const renderEvent = (hour: number, minute: number) => {
-		let eventsForSlot = getEventsForSlot(hour, minute);
+	const renderPortal = () => {
+		const modalContent = (
+		<div className={styles.modal} style={{ top: position.top, left: position.left }}>
+			<InvitePopup onClose={() => setShowModal(false)} date={new Date(day.date ?? "")} time={selectedHour} />
+		</div>
+		);
+
+		if (showModal && position.top && position.left) {
+			return createPortal(modalContent, document.body);
+		}
+		return null;
+	};
+
+	const renderEvent = (hour: number, interval: number, index: number) => {
+		let eventsForSlot = getEventsForSlot(hour, interval * index);
+		const formattedStr = `${formatHour(hour, interval * index)}`;
+
+		if (eventsForSlot.length === 0 && selectedHour === formattedStr) return <span>{formattedStr}</span>;
 		if (eventsForSlot.length === 0) return null;
 		const event = eventsForSlot[0];
 		return <div className={styles['event']}>{event.name}</div>;
 	};
 
-	if (day.id === 0) {
+	if (day.name === "Sunday") {
 		return (
 			<div key={`${hour}-${day.name}`} className={styles['hour-slot-unavailable']}>
 				<IconUnavailable />
@@ -86,6 +81,7 @@ export const HourGrid: React.FC<{
 			</div>
 		);
 	}
+
 	return (
 		<div ref={slotRef} key={`${hour}-${day.name}`} className={styles['hour-slot']}>
 			{Array.from({ length: 4 }).map((_, index) => (
@@ -94,15 +90,14 @@ export const HourGrid: React.FC<{
 						handleHover(hour, 15 * index);
 					}}
 					onMouseLeave={() => {
-						setSelectedHour(null);
+						setSelectedHour("");
 					}}
-					onClick={handleClick}
+					onClick={() => setShowModal(true)}
 					className={styles['slot-partition']}
 					key={`${hour}-${day.name}-${index}`}
 				>
 					<div className={styles['event-container']}>
-						{selectedHour === `${formatHour(hour, 15 * index)}` && <span>{formatHour(hour, 15 * index)}</span>}
-						{renderEvent(hour, 15 * index)}
+						{renderEvent(hour, 15, index)}
 					</div>
 				</div>
 			))}

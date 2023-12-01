@@ -43,11 +43,11 @@ const updateLayoutState = (data: Calendar, action: Actions, type?: CalendarType,
 	const updatedData = { ...data, calendarType: type ?? data.calendarType };
 	const { currentDate } = updatedData;
 	let value = 0;
-	let calendarType = type ? type : updatedData.calendarType
+	let calendarType = type ? type : updatedData.calendarType;
 	if (action !== Navigation_Actions.LINK) {
 		value = action === Navigation_Actions.NEXT ? 1 : -1;
 	}
-	console.log("date", date, action)
+	console.log('date', date, action);
 	const newDate = new Date(date ? date : currentDate);
 
 	switch (calendarType) {

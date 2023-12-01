@@ -12,6 +12,10 @@
 			display: inline-block;
 			cursor: pointer;
 			padding: 0 4px;
+
+			&:hover {
+				color: #E1003E;
+			}
 		}
 	}
 

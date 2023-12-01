@@ -37,9 +37,12 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 		[selectedMonth.id, selectedYear.id]
 	);
 
-	const getFilteredEvents = useCallback((day: Date) => {
-		return day ? eventState.events.filter((event) => isTodayEvent(event.date, day)) : [];
-	}, [eventState.events, selectedMonth])
+	const getFilteredEvents = useCallback(
+		(day: Date) => {
+			return day ? eventState.events.filter((event) => isTodayEvent(event.date, day)) : [];
+		},
+		[eventState.events, selectedMonth]
+	);
 
 	const renderEvents = useCallback(
 		(day: Date) => {
@@ -69,8 +72,7 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 						calendarActions.updateCalendarType('Month', new Date(state.currentYear.id, selectedMonth.id, 1));
 					}}
 				>
-					<span>{selectedMonth.name}</span>
-					<span>{state.currentYear.name}</span>
+					<span>{selectedMonth.name} &nbsp;{state.currentYear.name}</span>
 				</h3>
 			)}
 			<div className={styles['days-grid']}>
