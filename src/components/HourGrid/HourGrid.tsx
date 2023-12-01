@@ -8,7 +8,7 @@ import { InvitePopup } from '..';
 export const HourGrid: React.FC<{
 	hour: number;
 	day: Day;
-	events: Event[]
+	events: Event[];
 }> = (props) => {
 	const { hour, day } = props;
 	const [selectedHour, setSelectedHour] = useState<string | null>(null);
@@ -59,28 +59,25 @@ export const HourGrid: React.FC<{
 		return null;
 	};
 
-	const getEventsForSlot = useCallback((hour: number, minute: number) => {
-		return props.events.filter(event => {
-			const eventDate = new Date(event.startTime);
-			console.log("getHours", eventDate, eventDate.getHours(), hour, minute)
-			return (
-				eventDate.getHours() === hour &&
-				eventDate.getMinutes() >= minute &&
-				eventDate.getMinutes() < minute + 15
-			);
-		});
-	}, [props.events]);
+	const getEventsForSlot = useCallback(
+		(hour: number, minute: number) => {
+			return props.events.filter((event) => {
+				const eventDate = new Date(event.startTime);
+				console.log('getHours', eventDate, eventDate.getHours(), hour, minute);
+				return (
+					eventDate.getHours() === hour && eventDate.getMinutes() >= minute && eventDate.getMinutes() < minute + 15
+				);
+			});
+		},
+		[props.events]
+	);
 
 	const renderEvent = (hour: number, minute: number) => {
-		let eventsForSlot = getEventsForSlot(hour, minute)
-		console.log("eventsForSlot", eventsForSlot,  props.events)
+		let eventsForSlot = getEventsForSlot(hour, minute);
+		console.log('eventsForSlot', eventsForSlot, props.events);
 		if (eventsForSlot.length === 0) return null;
 		const event = eventsForSlot[0];
-		return (
-			<div className={styles["event"]}>
-				{event.name}
-			</div>
-		);
+		return <div className={styles['event']}>{event.name}</div>;
 	};
 
 	if (day.id === 0) {

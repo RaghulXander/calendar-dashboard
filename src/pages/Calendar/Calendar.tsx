@@ -17,20 +17,19 @@ function CalendarPage() {
 		() => eventActions.reset;
 	}, [eventActions]);
 
-	const isTodayEvent =
-			(currentDate: Date, eventDate: Date) =>
-				new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
-				new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
-				new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear();
+	const isTodayEvent = (currentDate: Date, eventDate: Date) =>
+		new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
+		new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
+		new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear();
 
 	const generateWeekDays = useMemo(() => {
 		const { year, month, id } = state.currentWeek;
 		const weekDates = getWeekDates(year, month, id);
 		return weekDates.map((date) => {
 			const currentDay = weekdays.find((day) => day.id === date.getDay());
-			const events = eventState.events.filter(event => isTodayEvent(date, new Date(event.date)));
-			console.log("events", events)
-			
+			const events = eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)));
+			console.log('events', events);
+
 			if (!currentDay) return weekdays[0];
 			return {
 				...currentDay,
@@ -42,21 +41,21 @@ function CalendarPage() {
 	}, [state.currentWeek]);
 
 	const getCurrentDay = useMemo(() => {
-		const updatedEvents = eventState.events.filter(event => isTodayEvent(state.currentDate, new Date(event.date)));
-		console.log("updatedEvents", updatedEvents)
-		return [{
-			...state.currentDay,
-			date: state.currentDate,
-			events: updatedEvents ?? []
-		}];
+		const updatedEvents = eventState.events.filter((event) => isTodayEvent(state.currentDate, new Date(event.date)));
+		console.log('updatedEvents', updatedEvents);
+		return [
+			{
+				...state.currentDay,
+				date: state.currentDate,
+				events: updatedEvents ?? []
+			}
+		];
 	}, [state.currentDate, state.currentDay, eventState.events]);
 
 	const renderCurrentPageLayout = () => {
 		switch (state.calendarType) {
 			case LayoutTypes.DAY:
-				return <DayGrid
-					days={getCurrentDay}
-					currentDate={state.currentDate} />;
+				return <DayGrid days={getCurrentDay} currentDate={state.currentDate} />;
 			case LayoutTypes.MONTH:
 				return <MonthGrid selectedMonth={state.currentMonth} selectedYear={state.currentYear} />;
 			case LayoutTypes.WEEK:

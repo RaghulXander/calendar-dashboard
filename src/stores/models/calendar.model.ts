@@ -4,33 +4,32 @@ interface Defaults {
 	name: string;
 }
 
-
 interface User {
-  email: string;
-  displayName: string;
-  self: boolean;
-};
+	email: string;
+	displayName: string;
+	self: boolean;
+}
 
 export interface Event {
-  id?: number;
-  name: string;
-  created: string;
-  updated: string;
-  summary: string;
-  description: string;
-  status: string;
-  creator?: User;
-  organizer?: User;
-  attendees?: User[];
-  startTime: Date | string;
-  endTime: Date | string;
-  date: string;
+	id?: number;
+	name: string;
+	created: string;
+	updated: string;
+	summary: string;
+	description: string;
+	status: string;
+	creator?: User;
+	organizer?: User;
+	attendees?: User[];
+	startTime: Date | string;
+	endTime: Date | string;
+	date: string;
 }
 
 export interface Day extends Defaults {
 	type: 'Day';
 	events?: Event[];
-	date?: Date
+	date?: Date;
 }
 
 export interface Month extends Defaults {

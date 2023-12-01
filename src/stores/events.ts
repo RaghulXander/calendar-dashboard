@@ -13,20 +13,20 @@ const initialState = (): StateType => ({
 const actions = {
 	getEvents:
 		() =>
-			({ setState, getState }: StoreActionApi<StateType>) => {
-			getAllEvents().then((events) => {
-				console.log('All events:', events);
-				setState({
-					state: {
-						events
-					}
+		({ setState, getState }: StoreActionApi<StateType>) => {
+			getAllEvents()
+				.then((events) => {
+					console.log('All events:', events);
+					setState({
+						state: {
+							events
+						}
+					});
+				})
+				.catch((error) => {
+					// Handle error if fetching events fails
+					console.error('Failed to get events:', error);
 				});
-			})
-			.catch((error) => {
-				// Handle error if fetching events fails
-				console.error('Failed to get events:', error);
-			});
-
 		},
 	createEvent:
 		(date: Date) =>

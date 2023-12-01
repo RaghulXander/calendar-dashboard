@@ -2,7 +2,7 @@ import { createHook, type StoreActionApi, createStore } from 'react-sweet-state'
 import { type Actions, type Calendar, type CalendarType, type StateContext } from './models/calendar.model';
 import { LayoutTypes, Navigation_Actions } from '../constants/constants';
 import { Months, weekdays, getWeekNumber } from '../helpers/calendar';
-import { db } from "../db"
+import { db } from '../db';
 type StateType = StateContext<Calendar>;
 
 const initialState = (): StateType => {

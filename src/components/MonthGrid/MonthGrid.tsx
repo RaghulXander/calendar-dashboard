@@ -41,28 +41,29 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 		[selectedMonth.id, selectedYear.id]
 	);
 
+	const todayEvent = useCallback(
+		(date: Date | undefined) => {
+			if (!date) return [];
+			return eventState.events.filter((event) => isTodayEvent(event.date, date));
+		},
+		[eventState.events, selectedMonth]
+	);
 
-	const todayEvent = useCallback((date: Date | undefined) => {
-		if (!date) return [];
-		return eventState.events.filter((event) => isTodayEvent(event.date, date))
-	}, [eventState.events, selectedMonth]);
+	const renderEvents = useCallback(
+		(day: Date) => {
+			const filteredEvents = todayEvent(day);
+			console.log('filteredEvents', filteredEvents);
 
-	const renderEvents = useCallback((day: Date) => {
-		const filteredEvents = todayEvent(day);
-		console.log("filteredEvents", filteredEvents)
+			const renderEvent = (event: Event) => (
+				<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles['event']}>
+					{event.name}
+				</div>
+			);
 
-		const renderEvent = (event: Event) => (
-			<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles["event"]}>
-			{event.name}
-			</div>
-		);
-
-		return (
-			<div className={styles["event-container"]}>
-			{filteredEvents.map(renderEvent)}
-			</div>
-		);
-	}, [todayEvent]);
+			return <div className={styles['event-container']}>{filteredEvents.map(renderEvent)}</div>;
+		},
+		[todayEvent]
+	);
 
 	return (
 		<div

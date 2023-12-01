@@ -4,12 +4,16 @@ import styles from './DayGrid.module.scss';
 import { Months } from '../../helpers/calendar';
 import { HourGrid } from '..';
 
-export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: boolean }> = ({ days, currentDate, isWeekly }) => {
+export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: boolean }> = ({
+	days,
+	currentDate,
+	isWeekly
+}) => {
 	const hours: number[] = Array.from({ length: 6 }, (_, index) => index + 9);
 
 	const isCurrentHourEvent = useCallback(
 		(currentDate: Date, eventDate: Date) => {
-			console.log("isCurrentHourEvent", new Date(currentDate), new Date(eventDate))
+			console.log('isCurrentHourEvent', new Date(currentDate), new Date(eventDate));
 			//console.log("isCurrentHourEvent", new Date(currentDate).getMonth(), new Date(eventDate).getMonth())
 			//console.log("isCurrentHourEvent", new Date(currentDate).getFullYear(), new Date(eventDate).getFullYear())
 			//console.log("isCurrentHourEvent", new Date(currentDate).getHours(), new Date(eventDate).getHours())
@@ -17,7 +21,7 @@ export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: bool
 				new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
 				new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
 				new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
-			)
+			);
 		},
 		[currentDate]
 	);
@@ -25,9 +29,11 @@ export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: bool
 	const getEventsForDay = useCallback(
 		(day: Day) => {
 			if (!day?.events) return [];
-			const filteredEvents = day?.events?.filter(event => isCurrentHourEvent(day?.date ?? new Date(day.id), new Date(event.date)));
-			console.log("filteredEvents", filteredEvents)
-			return filteredEvents
+			const filteredEvents = day?.events?.filter((event) =>
+				isCurrentHourEvent(day?.date ?? new Date(day.id), new Date(event.date))
+			);
+			console.log('filteredEvents', filteredEvents);
+			return filteredEvents;
 		},
 		[currentDate]
 	);
