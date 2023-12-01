@@ -68,7 +68,12 @@ export const HourGrid: React.FC<{
 	const renderPortal = () => {
 		const modalContent = (
 			<div className={styles.modal} style={{ top: position.top, left: position.left }}>
-				<InvitePopup event={activeEvent} onClose={() => setShowModal(false)} date={new Date(day.date ?? '')} time={selectedHour} />
+				<InvitePopup
+					event={activeEvent}
+					onClose={() => setShowModal(false)}
+					date={new Date(day.date ?? '')}
+					time={selectedHour}
+				/>
 			</div>
 		);
 
@@ -118,7 +123,7 @@ export const HourGrid: React.FC<{
 						setShowModal(true);
 						const currentEvent = getEventsForSlot(hour, 15 * index) ?? undefined;
 						if (events.length > 0 && currentEvent.length > 0) {
-							setActiveItem(currentEvent[0])
+							setActiveItem(currentEvent[0]);
 						}
 					}}
 					className={styles['slot-partition']}

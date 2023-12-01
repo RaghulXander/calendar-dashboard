@@ -4,12 +4,12 @@ import { db, getAllEvents } from '../db';
 
 type StateType = StateContext<{ events: Event[] }> & {
 	loading: boolean;
-	currentEvent: Event | undefined
+	currentEvent: Event | undefined;
 };
 
 const initialState = (): StateType => ({
 	state: {
-		events: [],
+		events: []
 	},
 	currentEvent: undefined,
 	loading: false

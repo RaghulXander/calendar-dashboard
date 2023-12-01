@@ -18,8 +18,13 @@ import { useEffect, useCallback } from 'react';
 
 const emails = [{ email: 'abc@gmail.com' }, { email: 'xyz@gmail.com' }, { email: 'lmn@gmail.com' }];
 
-export const InvitePopup: React.FC<{ event: Event|undefined;  date: Date; time: string; onClose: () => void }> = ({ event, time, date, onClose }) => {
-	const [,eventActions] = useEventStore();
+export const InvitePopup: React.FC<{ event: Event | undefined; date: Date; time: string; onClose: () => void }> = ({
+	event,
+	time,
+	date,
+	onClose
+}) => {
+	const [, eventActions] = useEventStore();
 	const [inputData, setInputData] = useState('Default Meeting');
 
 	useEffect(() => {

@@ -12,16 +12,13 @@ export const DayGrid: React.FC<{
 }> = ({ days, currentDate, isWeekly, onHeaderClick }) => {
 	const hours: number[] = Array.from({ length: 6 }, (_, index) => index + 9);
 
-	const isCurrentHourEvent = useCallback(
-		(currentDate: Date, eventDate: Date) => {
-			return (
-				new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
-				new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
-				new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
-			);
-		},
-		[]
-	);
+	const isCurrentHourEvent = useCallback((currentDate: Date, eventDate: Date) => {
+		return (
+			new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
+			new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
+			new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
+		);
+	}, []);
 
 	const getEventsForDay = useCallback(
 		(day: Day) => {

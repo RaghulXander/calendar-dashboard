@@ -12,7 +12,7 @@ const initialState = (): StateType => {
 	const weekNumber = getWeekNumber(date);
 	return {
 		state: {
-			calendarType: localStorage.getItem("calendarType") as CalendarType ?? 'Month',
+			calendarType: (localStorage.getItem('calendarType') as CalendarType) ?? 'Month',
 			currentDate: date,
 			currentYear: {
 				type: 'Year',
@@ -158,7 +158,7 @@ const actions = {
 				},
 				loading: false
 			});
-			localStorage.setItem("calendarType", calendarType);
+			localStorage.setItem('calendarType', calendarType);
 		},
 	updateNext:
 		() =>

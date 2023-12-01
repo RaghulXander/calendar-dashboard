@@ -22,38 +22,41 @@ function CalendarPage() {
 		);
 	}, []);
 
-	const getEvent = useCallback((date: Date) => {
-		return eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)))
-	}, [eventState.events, isTodayEvent]);
+	const getEvent = useCallback(
+		(date: Date) => {
+			return eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)));
+		},
+		[eventState.events, isTodayEvent]
+	);
 
-const generateWeekDays = useMemo(() => {
-  const { year, month, id } = state.currentWeek;
-  const weekDates = getWeekDates(year, month, id);
-  return weekDates.map((date) => {
-    const currentDay = weekdays.find((day) => day.id === date.getDay());
-    const events = getEvent(date);
+	const generateWeekDays = useMemo(() => {
+		const { year, month, id } = state.currentWeek;
+		const weekDates = getWeekDates(year, month, id);
+		return weekDates.map((date) => {
+			const currentDay = weekdays.find((day) => day.id === date.getDay());
+			const events = getEvent(date);
 
-    if (!currentDay) return weekdays[0];
-    return {
-      ...currentDay,
-      id: date.getDate(),
-      date,
-      events
-    };
-  });
-}, [state.currentWeek, getEvent]);
+			if (!currentDay) return weekdays[0];
+			return {
+				...currentDay,
+				id: date.getDate(),
+				date,
+				events
+			};
+		});
+	}, [state.currentWeek, getEvent]);
 
-const getCurrentDay = useMemo(() => {
-  const updatedEvents = getEvent(state.currentDate);
+	const getCurrentDay = useMemo(() => {
+		const updatedEvents = getEvent(state.currentDate);
 
-  return [
-    {
-      ...state.currentDay,
-      date: state.currentDate,
-      events: updatedEvents ?? []
-    }
-  ];
-}, [state.currentDay, state.currentDate, getEvent]);
+		return [
+			{
+				...state.currentDay,
+				date: state.currentDate,
+				events: updatedEvents ?? []
+			}
+		];
+	}, [state.currentDay, state.currentDate, getEvent]);
 
 	const currentPageLayout = useMemo(() => {
 		switch (state.calendarType) {
@@ -81,7 +84,16 @@ const getCurrentDay = useMemo(() => {
 					</div>
 				);
 		}
-	}, [state.calendarType, state.currentDate, state.currentWeek, state.currentMonth, state.currentYear, eventState.events, eventLoading, loading]);
+	}, [
+		state.calendarType,
+		state.currentDate,
+		state.currentWeek,
+		state.currentMonth,
+		state.currentYear,
+		eventState.events,
+		eventLoading,
+		loading
+	]);
 
 	if (eventLoading || loading) return <LoadingIndicator />;
 
