@@ -16,7 +16,6 @@ const actions = {
 		({ setState, getState }: StoreActionApi<StateType>) => {
 			getAllEvents()
 				.then((events) => {
-					console.log('All events:', events);
 					setState({
 						state: {
 							events

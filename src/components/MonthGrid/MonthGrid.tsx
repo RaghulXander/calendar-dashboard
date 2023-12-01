@@ -52,7 +52,6 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 	const renderEvents = useCallback(
 		(day: Date) => {
 			const filteredEvents = todayEvent(day);
-			console.log('filteredEvents', filteredEvents);
 
 			const renderEvent = (event: Event) => (
 				<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles['event']}>

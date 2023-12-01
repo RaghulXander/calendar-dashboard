@@ -9,7 +9,6 @@ import { useCalendarStore } from '../../stores/calendar';
 function CalendarPage() {
 	const [{ state }] = useCalendarStore();
 	const [{ state: eventState }, eventActions] = useEventStore();
-	console.log('eventState', eventState);
 
 	useEffect(() => {
 		eventActions.getEvents();
@@ -28,7 +27,6 @@ function CalendarPage() {
 		return weekDates.map((date) => {
 			const currentDay = weekdays.find((day) => day.id === date.getDay());
 			const events = eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)));
-			console.log('events', events);
 
 			if (!currentDay) return weekdays[0];
 			return {
@@ -42,7 +40,7 @@ function CalendarPage() {
 
 	const getCurrentDay = useMemo(() => {
 		const updatedEvents = eventState.events.filter((event) => isTodayEvent(state.currentDate, new Date(event.date)));
-		console.log('updatedEvents', updatedEvents);
+
 		return [
 			{
 				...state.currentDay,

@@ -33,7 +33,6 @@ export const months: Month[] = Months.map((month, index) => ({
 
 export const getDaysInMonth = (year: number, month: number): Date[][] => {
 	const date = new Date(year, month, 1);
-	console.log(date);
 	const days: Date[][] = [];
 	let tempList: Date[] = Array.from({ length: date.getDay() });
 

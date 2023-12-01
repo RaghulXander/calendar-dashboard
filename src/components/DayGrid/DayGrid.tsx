@@ -13,11 +13,7 @@ export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: bool
 
 	const isCurrentHourEvent = useCallback(
 		(currentDate: Date, eventDate: Date) => {
-			console.log('isCurrentHourEvent', new Date(currentDate), new Date(eventDate));
-			//console.log("isCurrentHourEvent", new Date(currentDate).getMonth(), new Date(eventDate).getMonth())
-			//console.log("isCurrentHourEvent", new Date(currentDate).getFullYear(), new Date(eventDate).getFullYear())
-			//console.log("isCurrentHourEvent", new Date(currentDate).getHours(), new Date(eventDate).getHours())
-			return (
+		return (
 				new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
 				new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
 				new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
@@ -32,7 +28,6 @@ export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: bool
 			const filteredEvents = day?.events?.filter((event) =>
 				isCurrentHourEvent(day?.date ?? new Date(day.id), new Date(event.date))
 			);
-			console.log('filteredEvents', filteredEvents);
 			return filteredEvents;
 		},
 		[currentDate]

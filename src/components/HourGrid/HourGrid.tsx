@@ -63,7 +63,6 @@ export const HourGrid: React.FC<{
 		(hour: number, minute: number) => {
 			return props.events.filter((event) => {
 				const eventDate = new Date(event.startTime);
-				console.log('getHours', eventDate, eventDate.getHours(), hour, minute);
 				return (
 					eventDate.getHours() === hour && eventDate.getMinutes() >= minute && eventDate.getMinutes() < minute + 15
 				);
@@ -74,7 +73,6 @@ export const HourGrid: React.FC<{
 
 	const renderEvent = (hour: number, minute: number) => {
 		let eventsForSlot = getEventsForSlot(hour, minute);
-		console.log('eventsForSlot', eventsForSlot, props.events);
 		if (eventsForSlot.length === 0) return null;
 		const event = eventsForSlot[0];
 		return <div className={styles['event']}>{event.name}</div>;
