@@ -13,8 +13,8 @@ const initialState = (): StateType => ({
 const actions = {
 	getEvents:
 		() =>
-		({ setState, getState }: StoreActionApi<StateType>) => {
-			getAllEvents()
+		async ({ setState }: StoreActionApi<StateType>) => {
+			await getAllEvents()
 				.then((events) => {
 					setState({
 						state: {
@@ -28,13 +28,19 @@ const actions = {
 				});
 		},
 	createEvent:
-		(date: Date) =>
-		async ({ setState, getState }: StoreActionApi<StateType>) => {
+		(data: { date: Date, start: Date, end: Date, name: string }, callback: () => void) =>
+			async () => {
+				const {date, name, start, end} = data
+			function generateUniqueID() {
+				return Math.floor(Math.random() * 9000) + 1000;
+				}
+				const id = generateUniqueID();
 			const newEvent: Event = {
-				name: 'Meeting',
+				id,
+				name: name,
 				status: 'confirmed',
-				created: '2018-09-27T16:13:39.000Z',
-				updated: '2018-09-27T16:13:39.985Z',
+				created: date.toISOString(),
+				updated: date.toISOString(),
 				summary: 'Meeting with team',
 				description: 'Discuss project details',
 				creator: { email: 'user@example.com', displayName: 'User', self: true },
@@ -43,11 +49,13 @@ const actions = {
 					{ email: 'attendee1@example.com', displayName: 'Attendee 1', self: false },
 					{ email: 'attendee2@example.com', displayName: 'Attendee 2', self: false }
 				],
-				startTime: new Date(date),
-				endTime: new Date(date),
-				date: date.toISOString()
+				startTime: new Date(start),
+				endTime: new Date(end),
+				date: date.toDateString()
 			};
-			await db.events.add(newEvent);
+				const res = await db.events.add(newEvent, id);
+				console.log("res", res);
+			callback();
 		},
 	reset:
 		() =>

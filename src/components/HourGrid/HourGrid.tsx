@@ -12,25 +12,39 @@ export const HourGrid: React.FC<{
 }> = (props) => {
 	const { hour, day } = props;
 	const [selectedHour, setSelectedHour] = useState<string>("");
+	const [isHovering, setHoverState] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [position, setPosition] = useState({ top: 0, left: 0 });
 	const slotRef = useRef<HTMLDivElement>(null);
 
-	const handleHover = (hour: number, minutes: number) => {
+	const updateSelectedHours = (hour: number, minutes: number) => {
 		const formattedHour = hour.toString().padStart(2, '0');
 		const formattedMinutes = minutes.toString().padStart(2, '0');
 		setSelectedHour(`${formattedHour}:${formattedMinutes}`);
 	};
 
-	useEffect(() => {
-		if (slotRef.current) {
+	  useEffect(() => {
+			if (slotRef.current) {
 			const rect = slotRef.current.getBoundingClientRect();
-			setPosition({
-				top: rect.top + rect.height,
-				left: rect.left
-			});
-		}
-	}, []);
+			const modalWidth = 330;
+			const modalHeight = 450;
+			
+			let left = rect.left;
+			let top = rect.top + rect.height;
+			
+			// Check if the modal overflows on the right side
+			if (rect.left + modalWidth > window.innerWidth) {
+				left = window.innerWidth - modalWidth + 50;
+			}
+			
+			// Check if the modal overflows at the bottom
+			if (rect.top + rect.height + modalHeight > window.innerHeight) {
+				top = window.innerHeight - modalHeight
+			}
+
+			setPosition({ top, left });
+			}
+ 	 }, []);
 
 	const formatHour = (hour: number, minutes: number) => {
 		const formattedHour = hour.toString().padStart(2, '0');
@@ -51,6 +65,7 @@ export const HourGrid: React.FC<{
 	);
 
 	const renderPortal = () => {
+		console.log("selectedHour", selectedHour)
 		const modalContent = (
 		<div className={styles.modal} style={{ top: position.top, left: position.left }}>
 			<InvitePopup onClose={() => setShowModal(false)} date={new Date(day.date ?? "")} time={selectedHour} />
@@ -67,7 +82,7 @@ export const HourGrid: React.FC<{
 		let eventsForSlot = getEventsForSlot(hour, interval * index);
 		const formattedStr = `${formatHour(hour, interval * index)}`;
 
-		if (eventsForSlot.length === 0 && selectedHour === formattedStr) return <span>{formattedStr}</span>;
+		if (eventsForSlot.length === 0 && isHovering && selectedHour === formattedStr) return <span>{formattedStr}</span>;
 		if (eventsForSlot.length === 0) return null;
 		const event = eventsForSlot[0];
 		return <div className={styles['event']}>{event.name}</div>;
@@ -87,12 +102,16 @@ export const HourGrid: React.FC<{
 			{Array.from({ length: 4 }).map((_, index) => (
 				<div
 					onMouseEnter={() => {
-						handleHover(hour, 15 * index);
+						setHoverState(true);
+						updateSelectedHours(hour, 15 * index);
 					}}
 					onMouseLeave={() => {
-						setSelectedHour("");
+						setHoverState(false);
 					}}
-					onClick={() => setShowModal(true)}
+					onClick={() => {
+						updateSelectedHours(hour, 15 * index);
+						setShowModal(true);
+					}}
 					className={styles['slot-partition']}
 					key={`${hour}-${day.name}-${index}`}
 				>

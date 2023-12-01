@@ -11,12 +11,14 @@ import {
 import styles from './InvitePopup.module.scss';
 import { useState } from 'react';
 import { Months, Days } from 'helpers/calendar';
-import { IconAvailable, IconLocation } from 'icons/Icons/meetings-page';
+import { IconUnavailable, IconLocation } from 'icons/Icons/my-calender';
+import { useEventStore } from 'stores/events';
 
 const emails = ['abc@gmail.com', 'xyz@gmail.com', 'lmn@gmail.com'];
 
 export const InvitePopup: React.FC<{ date: Date, time: string, onClose: () => void }> = ({ time, date, onClose }) => {
-	const [inputData, setInputData] = useState("");
+	const [inputData, setInputData] = useState("Default Meeting");
+	const [{ state }, eventActions] = useEventStore();
 
 	const getFormattedTime = () => {
 		const day = Days[date.getDay()];
@@ -24,8 +26,27 @@ export const InvitePopup: React.FC<{ date: Date, time: string, onClose: () => vo
 		return `${day} ${date.getDate()}, ${month} ${date.getFullYear()}`
 	}
 
+	function getTwoDatesWithGap(baseDate: Date, timeString: string) {
+		const [hours, minutes] = timeString.split(':').map(Number);
+		const date1 = new Date(baseDate);
+		date1.setHours(hours, minutes, 0, 0);
+
+		const date2 = new Date(date1.getTime() + 15 * 60000); // Adding 15 minutes in milliseconds
+		return [date1, date2];
+	}
+
+	const onSuccess = () => {
+		eventActions.getEvents();
+		onClose();
+	}
+
+	const onSave = () => {
+		const [start, end] = getTwoDatesWithGap(date, time)
+		eventActions.createEvent({ date, start, end, name: inputData }, onSuccess)
+	}
+
 	return (
-		< div className={`${styles.mcalender_popup} ${styles.show_popup}`}>
+		<div className={`${styles.mcalender_popup} ${styles.show_popup}`}>
 			<div className={styles.top_option}>
 				<span><IconEdit size={14} /></span>
 				<span><IconDelete size={14} /></span>
@@ -56,7 +77,7 @@ export const InvitePopup: React.FC<{ date: Date, time: string, onClose: () => vo
 					<div className={styles.attendeeList}>
 						{emails.map((email) => (
 							<div className={styles.attendee}>
-								<IconAvailable />
+								<IconUnavailable />
 								<strong>{email}</strong>
 							</div>
 						))}
@@ -65,7 +86,7 @@ export const InvitePopup: React.FC<{ date: Date, time: string, onClose: () => vo
 			</div>
 			<hr className={styles["modal-liner"]} />
 			<div className={styles["modal-actions"]}>
-				<button className={styles["save-action"]} onClick={onClose}>Save</button>
+				<button className={styles["save-action"]} onClick={onSave}>Save</button>
 				<button className={styles["cancel-action"]} onClick={onClose}>Cancel</button>
 			</div>
 		</div>

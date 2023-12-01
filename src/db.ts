@@ -12,21 +12,23 @@ export class MySubClassedDexie extends Dexie {
 		});
 	}
 
-	async syncEventsFromJSON() {
-		// Open a transaction to add events from the JSON file to the database
-		await this.transaction('rw', this.events, async () => {
-			await Promise.all(
-				eventsData.map(async (event: Event) => {
-					// Check if the event already exists in the database
-					const existingEvent = await this.events.where({ name: event.name, date: event.date }).first();
 
-					if (!existingEvent) {
+	async syncEventsFromJSON() {
+		// Get all events from the database
+		const allEvents = await this.events.toArray();
+
+		// If there are no events in the database, add events from the JSON file
+		if (allEvents.length === 0) {
+			await this.transaction('rw', this.events, async () => {
+				await Promise.all(
+					eventsData.map(async (event: Event) => {
 						await this.events.add(event);
-					}
-				})
-			);
-		});
+					})
+				);
+			});
+		}
 	}
+
 }
 
 export const db = new MySubClassedDexie();
