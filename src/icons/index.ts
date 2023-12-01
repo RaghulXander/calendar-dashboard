@@ -1,7 +1,3 @@
-// export * from "./Icons/meetings-page";
-// export * from "./Icons/menu";
-// export * from "./Icons/my-calender";
-
 export interface IconProps {
 	/**
 	 * The size of the icon. Defaults to 16.
