@@ -21,7 +21,7 @@ const initialState = (): StateType => {
 				type: 'Month',
 				id: date.getMonth(),
 				name: Months[date.getMonth()],
-				prefix: Months[date.getMonth()].slice(0, 1)
+				prefix: Months[date.getMonth()].slice(0, 3)
 			},
 			currentDay: {
 				type: 'Day',
@@ -39,18 +39,23 @@ const initialState = (): StateType => {
 	};
 };
 
-const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
-	const updatedData = { ...data };
-	const { calendarType, currentDate } = updatedData;
-	const value = action === Navigation_Actions.NEXT ? 1 : -1;
-	const newDate = new Date(currentDate);
+const updateLayoutState = (data: Calendar, action: Actions, type?: CalendarType, date?: Date): Calendar => {
+	const updatedData = { ...data, calendarType: type ?? data.calendarType };
+	const { currentDate } = updatedData;
+	let value = 0;
+	let calendarType = type ? type : updatedData.calendarType
+	if (action !== Navigation_Actions.LINK) {
+		value = action === Navigation_Actions.NEXT ? 1 : -1;
+	}
+	console.log("date", date, action)
+	const newDate = new Date(date ? date : currentDate);
 
 	switch (calendarType) {
 		case LayoutTypes.DAY:
 			newDate.setDate(newDate.getDate() + value);
 			const dayWeekNumber = getWeekNumber(newDate);
 			return {
-				...data,
+				...updatedData,
 				currentDay: {
 					type: 'Day',
 					id: newDate.getDate(),
@@ -67,7 +72,7 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 					type: 'Month',
 					id: newDate.getMonth(),
 					name: Months[newDate.getMonth()],
-					prefix: Months[newDate.getMonth()].slice(0, 1)
+					prefix: Months[newDate.getMonth()].slice(0, 3)
 				},
 				currentYear: {
 					type: 'Year',
@@ -81,7 +86,7 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 			newDate.setDate(newDate.getDate() + 7 * value);
 			const weekNumber = getWeekNumber(newDate);
 			return {
-				...data,
+				...updatedData,
 				currentWeek: {
 					type: 'Week',
 					id: weekNumber,
@@ -92,7 +97,7 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 					type: 'Month',
 					id: newDate.getMonth(),
 					name: Months[newDate.getMonth()],
-					prefix: Months[newDate.getMonth()].slice(0, 1)
+					prefix: Months[newDate.getMonth()].slice(0, 3)
 				},
 				currentYear: {
 					type: 'Year',
@@ -105,12 +110,12 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 			newDate.setMonth(newDate.getMonth() + value);
 			const monthName = Months[newDate.getMonth()];
 			return {
-				...data,
+				...updatedData,
 				currentMonth: {
 					type: 'Month',
 					id: newDate.getMonth(),
 					name: monthName,
-					prefix: monthName.slice(0, 1)
+					prefix: monthName.slice(0, 3)
 				},
 				currentYear: {
 					type: 'Year',
@@ -123,7 +128,7 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 		case LayoutTypes.YEAR:
 			newDate.setFullYear(newDate.getFullYear() + value);
 			return {
-				...data,
+				...updatedData,
 				currentYear: {
 					type: 'Year',
 					id: newDate.getFullYear(),
@@ -139,12 +144,12 @@ const updateLayoutState = (action: Actions, data: Calendar): Calendar => {
 
 const actions = {
 	updateCalendarType:
-		(calendarType: CalendarType) =>
+		(calendarType: CalendarType, date?: Date) =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
+			const data = updateLayoutState(getState().state, Navigation_Actions.LINK as Actions, calendarType, date);
 			setState({
 				state: {
-					...getState().state,
-					calendarType
+					...data
 				}
 			});
 		},
@@ -152,7 +157,7 @@ const actions = {
 		() =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
 			const { state } = getState();
-			const data = updateLayoutState(Navigation_Actions.NEXT as Actions, state);
+			const data = updateLayoutState(state, Navigation_Actions.NEXT as Actions);
 			setState({
 				state: {
 					...data
@@ -163,7 +168,7 @@ const actions = {
 		() =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
 			const { state } = getState();
-			const data = updateLayoutState(Navigation_Actions.PREVIOUS as Actions, state);
+			const data = updateLayoutState(state, Navigation_Actions.PREVIOUS as Actions);
 			setState({
 				state: {
 					...data

@@ -7,5 +7,6 @@ export const LayoutTypes = {
 
 export const Navigation_Actions = {
 	NEXT: 'Next',
-	PREVIOUS: 'Previous'
+	PREVIOUS: 'Previous',
+	LINK: 'LINK'
 };

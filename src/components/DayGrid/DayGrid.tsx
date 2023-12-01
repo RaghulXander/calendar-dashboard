@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react';
-import { type Day } from 'stores/models/calendar.model';
+import { CalendarType, type Day } from 'stores/models/calendar.model';
 import styles from './DayGrid.module.scss';
 import { Months } from '../../helpers/calendar';
 import { HourGrid } from '..';
+import { LayoutTypes } from 'constants/constants';
 
-export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: boolean }> = ({
+export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: boolean; onHeaderClick?: (type: CalendarType, date: Date) => void }> = ({
 	days,
 	currentDate,
-	isWeekly
+	isWeekly,
+	onHeaderClick,
 }) => {
 	const hours: number[] = Array.from({ length: 6 }, (_, index) => index + 9);
 
@@ -43,7 +45,9 @@ export const DayGrid: React.FC<{ days: Day[]; currentDate: Date; isWeekly?: bool
 					</div>
 				) : (
 					days.map((day) => (
-						<div key={day.name} className={styles['week-day']}>
+						<div key={day.name} className={styles['week-day']} onClick={() => {
+							if (onHeaderClick && day.date) onHeaderClick("Day", day.date)
+						}}>
 							<span className={styles['week-date']}>{day.id}</span>
 							{day.name}
 						</div>

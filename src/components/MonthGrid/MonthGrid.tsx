@@ -13,12 +13,8 @@ interface MonthGridProps {
 
 export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 	const [{ state }, calendarActions] = useCalendarStore();
-	const [{ state: eventState }, eventActions] = useEventStore();
-
+	const [{ state: eventState }] = useEventStore();
 	const { selectedYear, selectedMonth } = props;
-
-	// const selectedDate = props.selectedDate ? props.selectedDate : state.currentDate;
-	// const selectedMonth = props.selectedMonth ? props.selectedMonth : state.currentMonth;
 
 	const daysInMonth = useMemo(
 		() => getDaysInMonth(selectedYear.id, selectedMonth.id),
@@ -41,17 +37,13 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 		[selectedMonth.id, selectedYear.id]
 	);
 
-	const todayEvent = useCallback(
-		(date: Date | undefined) => {
-			if (!date) return [];
-			return eventState.events.filter((event) => isTodayEvent(event.date, date));
-		},
-		[eventState.events, selectedMonth]
-	);
+	const getFilteredEvents = useCallback((day: Date) => {
+		return day ? eventState.events.filter((event) => isTodayEvent(event.date, day)) : [];
+	}, [eventState.events, selectedMonth])
 
 	const renderEvents = useCallback(
 		(day: Date) => {
-			const filteredEvents = todayEvent(day);
+			const filteredEvents = getFilteredEvents(day);
 
 			const renderEvent = (event: Event) => (
 				<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles['event']}>
@@ -61,7 +53,7 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 
 			return <div className={styles['event-container']}>{filteredEvents.map(renderEvent)}</div>;
 		},
-		[todayEvent]
+		[eventState.events, selectedMonth]
 	);
 
 	return (
@@ -74,7 +66,7 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 				<h3
 					className={styles['month-title']}
 					onClick={() => {
-						calendarActions.updateCalendarType('Month');
+						calendarActions.updateCalendarType('Month', new Date(state.currentYear.id, selectedMonth.id, 1));
 					}}
 				>
 					<span>{selectedMonth.name}</span>
@@ -107,6 +99,7 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 									})}
 								>
 									<span className={classNames(styles.currentDate)}>{currentDate}</span>
+									{getFilteredEvents(day).length > 0 ? <span className={classNames(styles.eventMarker)} /> : null}
 									{day && !props.minimal ? renderEvents(day) : null}
 								</div>
 							);

@@ -8,22 +8,15 @@ import SvgIconRgtArrow from '../../icons/Icons/my-calender/IconRgtArrow';
 import { IconCountdown, IconPrint } from '../../icons/Icons/my-calender';
 import styles from './Header.module.scss';
 
-// interface HeaderProps {
-//	calendarType: "Year" | "Month" | "Week" | "Day"
-//	onUpdateCalendarType: (type: string) => void
-//	onChangeNext: () => void
-//	onChangePrevious: () => void
-// }
-
 export function Header(): React.ReactElement {
 	const [{ state }, calendarActions] = useCalendarStore();
-	const { calendarType, currentDay, currentMonth, currentWeek, currentYear } = state;
+	const { calendarType, currentDay, currentMonth, currentYear } = state;
 	const displayDate = useMemo(() => {
 		switch (calendarType) {
 			case LayoutTypes.DAY: {
 				return (
 					<span>
-						{currentDay.name} {currentMonth.name} {currentYear.name}
+						{currentDay.id} {currentDay.name} {currentMonth.name} {currentYear.name}
 					</span>
 				);
 			}

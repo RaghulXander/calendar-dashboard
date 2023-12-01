@@ -49,7 +49,7 @@ export interface Week {
 	year: number;
 }
 
-export type Actions = 'Next' | 'Previous';
+export type Actions = 'Next' | 'Previous' | 'Link';
 
 export type CalendarType = 'Day' | 'Week' | 'Year' | 'Month';
 

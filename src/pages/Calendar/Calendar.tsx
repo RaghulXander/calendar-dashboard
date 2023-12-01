@@ -7,7 +7,7 @@ import { useEventStore } from '../../stores/events';
 import { useCalendarStore } from '../../stores/calendar';
 
 function CalendarPage() {
-	const [{ state }] = useCalendarStore();
+	const [{ state }, calendarActions] = useCalendarStore();
 	const [{ state: eventState }, eventActions] = useEventStore();
 
 	useEffect(() => {
@@ -57,7 +57,7 @@ function CalendarPage() {
 			case LayoutTypes.MONTH:
 				return <MonthGrid selectedMonth={state.currentMonth} selectedYear={state.currentYear} />;
 			case LayoutTypes.WEEK:
-				return <DayGrid days={generateWeekDays} currentDate={state.currentDate} isWeekly />;
+				return <DayGrid days={generateWeekDays} currentDate={state.currentDate} isWeekly onHeaderClick={calendarActions.updateCalendarType} />;
 
 			case LayoutTypes.YEAR:
 			default:

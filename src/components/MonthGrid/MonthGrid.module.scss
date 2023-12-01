@@ -120,7 +120,7 @@
 
 		.week-row {
 			.day {
-				min-height: 24px;
+				min-height: 28px;
 				border: none;
 				padding: 2px;
 				font-size: 12px;
@@ -129,13 +129,24 @@
 				font-weight: 500;
     			justify-content: center;
 
+				.eventMarker {
+					background-color: #E1003E;
+					width: 4px;
+					height: 4px;
+					border-radius: 100%;
+					position: absolute;
+					bottom: 15%;
+					right: 45%;
+					top: unset;
+				}
+
 				span {
 					position: relative;
 					top: 0;
 					right: 0;
 				}
 
-				&.active span {
+				&.active span:first-child {
 					
 					background-color: #6E1588;
 					color: #fff;
