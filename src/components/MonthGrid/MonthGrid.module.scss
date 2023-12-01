@@ -3,15 +3,16 @@
 
 	.month-title {
 		display: flex;
-		margin: 0 0 10px;
+		margin : 0 0 10px;
+
 		* {
-			font-size: 14px;
+			font-size  : 14px;
 			line-height: 20px;
-			color: #6E1588;
+			color      : #6E1588;
 			font-weight: 600;
-			display: inline-block;
-			cursor: pointer;
-			padding: 0 4px;
+			display    : inline-block;
+			cursor     : pointer;
+			padding    : 0 4px;
 
 			&:hover {
 				color: #E1003E;
@@ -21,84 +22,93 @@
 
 	.days-grid {
 		.weekdays {
-			display: flex;
+			display  : flex;
 			flex-wrap: wrap;
+
 			.weekday {
-				font-size: 14px;
-				line-height: 24px;
-				color: #6E0D88;
-				font-weight: 500;
-				justify-content: center;
+				font-size       : 14px;
+				line-height     : 24px;
+				color           : #6E0D88;
+				font-weight     : 500;
+				justify-content : center;
 				background-color: #fff;
-				display: flex;
-				width: calc(100%/7);
-				border-left: 1px solid #eaeaea;
-				border-top: 1px solid #eaeaea;
-				padding: 10px;
+				display         : flex;
+				width           : calc(100%/7);
+				border-left     : 1px solid #eaeaea;
+				border-top      : 1px solid #eaeaea;
+				padding         : 10px;
 			}
 		}
 
 		.week-row {
-			display: flex;
+			display  : flex;
 			flex-wrap: wrap;
+
 			.day {
-				min-height: calc(70vh/5);
-				padding: 35px 0px;
-				flex-wrap: wrap;
-				align-content: flex-start;
-				justify-content: flex-end;
-				position: relative;
+				min-height      : calc(70vh/5);
+				padding         : 35px 0px;
+				flex-wrap       : wrap;
+				align-content   : flex-start;
+				justify-content : flex-end;
+				position        : relative;
 				background-color: #fff;
-				display: flex;
-				width: calc(100%/7);
-				border-left: 1px solid #eaeaea;
-				border-top: 1px solid #eaeaea;
-				padding: 10px;
-				font-size: 16px;
-				line-height: 20px;
-				font-weight: 500;
-				color: #000;
+				display         : flex;
+				width           : calc(100%/7);
+				border-left     : 1px solid #eaeaea;
+				border-top      : 1px solid #eaeaea;
+				padding         : 10px;
+				font-size       : 16px;
+				line-height     : 20px;
+				font-weight     : 500;
+				color           : #000;
 				//padding: 10px 20px;
-				padding: 4px;
-				position: relative;
+				padding         : 4px;
+				position        : relative;
 
 				&.sunday {
-					color: #E1003E;
+					color           : #E1003E;
+					background-color: #bfbfbf;
+
+					.event-container {
+						display: none;
+					}
 				}
 
 				span {
 					position: absolute;
-					top: 10px;
-					right: 10px;
+					top     : 10px;
+					right   : 10px;
 				}
 
 				.event-container {
-					display: flex;
-					overflow-y: auto;
+					display        : flex;
 					justify-content: center;
-					align-items: center;
-					flex-wrap: wrap;
-					height: 100%;
-					width: 100%;
+					align-items    : center;
+					flex-wrap      : wrap;
+					height         : 100%;
+					width          : 100%;
 
 					.event {
-						width: 100%;
-						display: flex;
-						align-items: center;
+						width          : 100%;
+						display        : flex;
+						align-items    : center;
 						justify-content: center;
-						font-size: 13px;
-						line-height: 20px;
-						font-weight: 500;
-						text-align: center;
-						color: #fff;
-						letter-spacing: -0.18px;
-						padding: 2px 5px;
+						font-size      : 13px;
+						line-height    : 20px;
+						font-weight    : 500;
+						overflow       : hidden;
+						white-space    : nowrap;
+						text-overflow  : ellipsis;
+						text-align     : center;
+						color          : #fff;
+						letter-spacing : -0.18px;
+						padding        : 2px 5px;
 
-						 @for $i from 0 to 10 {
+						@for $i from 0 to 10 {
 							&:nth-child(#{$i}) {
 								background-color: rgb(random(255), random(255), random(255));
 							}
-  						}
+						}
 					}
 				}
 			}
@@ -107,60 +117,61 @@
 	}
 
 	&.small-grid {
-		width: calc(90vw/4);
-		padding: 10px;
+		width    : calc(90vw/4);
+		padding  : 10px;
 		max-width: 270px;
 
 		.days-grid {
 			.weekday {
-				min-height: 30px;
-				border: none;
-				font-size: 13px;
+				min-height : 30px;
+				border     : none;
+				font-size  : 13px;
 				line-height: 20px;
-				color: #E1003E;
+				color      : #E1003E;
 				font-weight: 500;
 			}
 		}
 
 		.week-row {
 			.day {
-				min-height: 28px;
-				border: none;
-				padding: 2px;
-				font-size: 12px;
-				line-height: 20px;
-				color: #707070;
-				font-weight: 500;
-    			justify-content: center;
+				min-height     : 28px;
+				border         : none;
+				padding        : 2px;
+				font-size      : 12px;
+				line-height    : 20px;
+				color          : #707070;
+				font-weight    : 500;
+				justify-content: center;
 
 				.eventMarker {
 					background-color: #E1003E;
-					width: 4px;
-					height: 4px;
-					border-radius: 100%;
-					position: absolute;
-					bottom: 15%;
-					right: 45%;
-					top: unset;
+					width           : 4px;
+					height          : 4px;
+					border-radius   : 100%;
+					position        : absolute;
+					bottom          : 15%;
+					right           : 45%;
+					top             : unset;
 				}
 
 				span {
 					position: relative;
-					top: 0;
-					right: 0;
+					top     : 0;
+					right   : 0;
 				}
 
 				&.active span:first-child {
-					
+
 					background-color: #6E1588;
-					color: #fff;
-					border-radius: 100%;
-					width: 24px;
-					height: 24px;
-					justify-content: center;
-					display: flex;
-					align-items: center;
+					color           : #fff;
+					border-radius   : 100%;
+					width           : 24px;
+					height          : 24px;
+					justify-content : center;
+					display         : flex;
+					align-items     : center;
 				}
+
 				&.sunday {
 					color: #BEBEBE;
 				}

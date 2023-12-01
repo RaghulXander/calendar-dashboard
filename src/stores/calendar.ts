@@ -2,15 +2,17 @@ import { createHook, type StoreActionApi, createStore } from 'react-sweet-state'
 import { type Actions, type Calendar, type CalendarType, type StateContext } from './models/calendar.model';
 import { LayoutTypes, Navigation_Actions } from '../constants/constants';
 import { Months, weekdays, getWeekNumber } from '../helpers/calendar';
-import { db } from '../db';
-type StateType = StateContext<Calendar>;
+
+type StateType = StateContext<Calendar> & {
+	loading: boolean;
+};
 
 const initialState = (): StateType => {
 	const date = new Date();
 	const weekNumber = getWeekNumber(date);
 	return {
 		state: {
-			calendarType: 'Month',
+			calendarType: localStorage.getItem("calendarType") as CalendarType ?? 'Month',
 			currentDate: date,
 			currentYear: {
 				type: 'Year',
@@ -35,7 +37,8 @@ const initialState = (): StateType => {
 				month: date.getMonth(),
 				year: date.getFullYear()
 			}
-		}
+		},
+		loading: false
 	};
 };
 
@@ -47,7 +50,6 @@ const updateLayoutState = (data: Calendar, action: Actions, type?: CalendarType,
 	if (action !== Navigation_Actions.LINK) {
 		value = action === Navigation_Actions.NEXT ? 1 : -1;
 	}
-	console.log('date', date, action);
 	const newDate = new Date(date ? date : currentDate);
 
 	switch (calendarType) {
@@ -146,33 +148,46 @@ const actions = {
 	updateCalendarType:
 		(calendarType: CalendarType, date?: Date) =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
+			setState({
+				loading: true
+			});
 			const data = updateLayoutState(getState().state, Navigation_Actions.LINK as Actions, calendarType, date);
 			setState({
 				state: {
 					...data
-				}
+				},
+				loading: false
 			});
+			localStorage.setItem("calendarType", calendarType);
 		},
 	updateNext:
 		() =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
 			const { state } = getState();
+			setState({
+				loading: true
+			});
 			const data = updateLayoutState(state, Navigation_Actions.NEXT as Actions);
 			setState({
 				state: {
 					...data
-				}
+				},
+				loading: false
 			});
 		},
 	updatePrevious:
 		() =>
 		({ setState, getState }: StoreActionApi<StateType>) => {
 			const { state } = getState();
+			setState({
+				loading: true
+			});
 			const data = updateLayoutState(state, Navigation_Actions.PREVIOUS as Actions);
 			setState({
 				state: {
 					...data
-				}
+				},
+				loading: false
 			});
 		},
 	reset:

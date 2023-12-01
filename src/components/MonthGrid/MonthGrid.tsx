@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import classNames from 'classnames';
-import { getDaysInMonth, weekdays } from '../../helpers/calendar';
+import { getDaysInMonth, weekdays, Days } from '../../helpers/calendar';
 import { useCalendarStore } from '../../stores/calendar';
 import { type Month, type Year, Event } from '../../stores/models/calendar.model';
 import styles from './MonthGrid.module.scss';
@@ -34,14 +34,14 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 			new Date(currentDate).getDate() === new Date(date).getDate() &&
 			new Date(currentDate).getMonth() === selectedMonth.id &&
 			new Date(currentDate).getFullYear() === selectedYear.id,
-		[selectedMonth.id, selectedYear.id]
+		[selectedMonth.id, selectedYear.id, eventState]
 	);
 
 	const getFilteredEvents = useCallback(
 		(day: Date) => {
 			return day ? eventState.events.filter((event) => isTodayEvent(event.date, day)) : [];
 		},
-		[eventState.events, selectedMonth]
+		[eventState.events, selectedMonth, isTodayEvent]
 	);
 
 	const renderEvents = useCallback(
@@ -49,7 +49,7 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 			const filteredEvents = getFilteredEvents(day);
 
 			const renderEvent = (event: Event) => (
-				<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles['event']}>
+				<div title={event.name} key={`${event.id}-${event.name.slice(0, 3)}`} className={styles['event']}>
 					{event.name}
 				</div>
 			);
@@ -72,7 +72,9 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 						calendarActions.updateCalendarType('Month', new Date(state.currentYear.id, selectedMonth.id, 1));
 					}}
 				>
-					<span>{selectedMonth.name} &nbsp;{state.currentYear.name}</span>
+					<span>
+						{selectedMonth.name} &nbsp;{state.currentYear.name}
+					</span>
 				</h3>
 			)}
 			<div className={styles['days-grid']}>

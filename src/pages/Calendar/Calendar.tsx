@@ -1,56 +1,61 @@
 import { getWeekDates, weekdays, months as MonthList } from 'helpers/calendar';
-import { useEffect, useMemo } from 'react';
-import { Header, MonthGrid, DayGrid } from '../../components';
+import { useEffect, useMemo, useCallback } from 'react';
+import { Header, MonthGrid, DayGrid, LoadingIndicator } from '../../components';
 import { LayoutTypes } from '../../constants/constants';
 import styles from './Calendar.module.scss';
 import { useEventStore } from '../../stores/events';
 import { useCalendarStore } from '../../stores/calendar';
 
 function CalendarPage() {
-	const [{ state }, calendarActions] = useCalendarStore();
-	const [{ state: eventState }, eventActions] = useEventStore();
+	const [{ state, loading }, calendarActions] = useCalendarStore();
+	const [{ state: eventState, loading: eventLoading }, eventActions] = useEventStore();
 
 	useEffect(() => {
 		eventActions.getEvents();
-
-		() => eventActions.reset;
 	}, [eventActions]);
 
-	const isTodayEvent = (currentDate: Date, eventDate: Date) =>
-		new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
-		new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
-		new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear();
+	const isTodayEvent = useCallback((currentDate: Date, eventDate: Date) => {
+		return (
+			new Date(currentDate).getDate() === new Date(eventDate).getDate() &&
+			new Date(currentDate).getMonth() === new Date(eventDate).getMonth() &&
+			new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
+		);
+	}, []);
 
-	const generateWeekDays = useMemo(() => {
-		const { year, month, id } = state.currentWeek;
-		const weekDates = getWeekDates(year, month, id);
-		return weekDates.map((date) => {
-			const currentDay = weekdays.find((day) => day.id === date.getDay());
-			const events = eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)));
+	const getEvent = useCallback((date: Date) => {
+		return eventState.events.filter((event) => isTodayEvent(date, new Date(event.date)))
+	}, [eventState.events, isTodayEvent]);
 
-			if (!currentDay) return weekdays[0];
-			return {
-				...currentDay,
-				id: date.getDate(),
-				date,
-				events
-			};
-		});
-	}, [state.currentWeek]);
+const generateWeekDays = useMemo(() => {
+  const { year, month, id } = state.currentWeek;
+  const weekDates = getWeekDates(year, month, id);
+  return weekDates.map((date) => {
+    const currentDay = weekdays.find((day) => day.id === date.getDay());
+    const events = getEvent(date);
 
-	const getCurrentDay = useMemo(() => {
-		const updatedEvents = eventState.events.filter((event) => isTodayEvent(state.currentDate, new Date(event.date)));
+    if (!currentDay) return weekdays[0];
+    return {
+      ...currentDay,
+      id: date.getDate(),
+      date,
+      events
+    };
+  });
+}, [state.currentWeek, getEvent]);
 
-		return [
-			{
-				...state.currentDay,
-				date: state.currentDate,
-				events: updatedEvents ?? []
-			}
-		];
-	}, [state.currentDate, state.currentDay, eventState.events]);
+const getCurrentDay = useMemo(() => {
+  const updatedEvents = getEvent(state.currentDate);
 
-	const renderCurrentPageLayout = () => {
+  return [
+    {
+      ...state.currentDay,
+      date: state.currentDate,
+      events: updatedEvents ?? []
+    }
+  ];
+}, [state.currentDay, state.currentDate, getEvent]);
+
+	const currentPageLayout = useMemo(() => {
 		switch (state.calendarType) {
 			case LayoutTypes.DAY:
 				return <DayGrid days={getCurrentDay} currentDate={state.currentDate} />;
@@ -76,11 +81,14 @@ function CalendarPage() {
 					</div>
 				);
 		}
-	};
+	}, [state.calendarType, state.currentDate, state.currentWeek, state.currentMonth, state.currentYear, eventState.events, eventLoading, loading]);
+
+	if (eventLoading || loading) return <LoadingIndicator />;
+
 	return (
 		<div className={styles['calendar-page']}>
 			<Header />
-			<div className={styles.container}>{renderCurrentPageLayout()}</div>
+			<div className={styles.container}>{currentPageLayout}</div>
 		</div>
 	);
 }

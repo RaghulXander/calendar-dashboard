@@ -47,7 +47,6 @@ export const getDaysInMonth = (year: number, month: number): Date[][] => {
 		date.setDate(date.getDate() + 1);
 	}
 
-	// Add the last week, even if it's incomplete
 	if (tempList.length > 0) {
 		days.push(tempList);
 	}
@@ -59,12 +58,10 @@ export const getWeekDates = (year: number, month: number, weekNumber: number): D
 	const firstDayOfMonth: Date = new Date(year, month, 1);
 	const firstDayOfWeek: Date = new Date(year, month, 1 - firstDayOfMonth.getDay());
 
-	// Check if the first day of the week falls in the previous month
 	if (firstDayOfWeek.getMonth() !== month) {
 		firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 7); // Move to the next week
 	}
 
-	// Create a new Date object for the target week's start
 	const targetDate: Date = new Date(firstDayOfWeek.getTime());
 	const startDate: Date = new Date(year, 0, 1);
 	const days: number = Math.floor((targetDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
@@ -87,6 +84,7 @@ export const getWeekNumber = (date: Date): number => {
 	return Math.ceil(days / 7);
 };
 
+// unused
 const getDateDetails = (date: Date): { year: number; month: number; date: number } => {
 	const year = date.getFullYear();
 	const monthId = date.getMonth();

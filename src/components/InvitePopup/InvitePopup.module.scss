@@ -34,6 +34,19 @@
 	}
 
 	.modal-content {
+		.content-description {
+			margin: 10px 0;
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 500;
+			color: rgb(244, 81, 81);
+
+			.label {
+				font-size: 14px;
+				color: #6E1588;
+				margin: 2px 0 4px 0;
+			}
+		}
 		.modal-content-header {
 			.input-container {
 				margin: 10px 0;
@@ -51,6 +64,7 @@
 					border-color: #007bff;
 				}
 			}
+
 			.content-actions,
 			.content-details {
 				margin: 10px 0;

@@ -41,7 +41,6 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({ options, handleSelect, value }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(value);
-	// const dropdownRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		setSelectedValue(value);

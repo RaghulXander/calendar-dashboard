@@ -20,7 +20,7 @@ export const DayGrid: React.FC<{
 				new Date(currentDate).getFullYear() === new Date(eventDate).getFullYear()
 			);
 		},
-		[currentDate]
+		[]
 	);
 
 	const getEventsForDay = useCallback(
@@ -31,7 +31,7 @@ export const DayGrid: React.FC<{
 			);
 			return filteredEvents;
 		},
-		[currentDate]
+		[isCurrentHourEvent]
 	);
 
 	return (
