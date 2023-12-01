@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { IcDropdown, IcSortUpDown } from 'icons/Icons/meetings-page';
+import { IcDropdown } from 'icons/Icons/meetings-page';
 import styles from './Dropdown.module.scss';
 import useClickOutside from '../../hooks/useClickOutside';
 

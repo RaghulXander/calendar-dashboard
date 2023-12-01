@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { type Day } from 'stores/models/calendar.model';
+import { type Day, Event } from 'stores/models/calendar.model';
 import { IconUnavailable } from 'icons/Icons/my-calender';
 import styles from './HourGrid.module.scss';
 import { InvitePopup } from '..';
@@ -8,6 +8,7 @@ import { InvitePopup } from '..';
 export const HourGrid: React.FC<{
 	hour: number;
 	day: Day;
+	events: Event[]
 }> = (props) => {
 	const { hour, day } = props;
 	const [selectedHour, setSelectedHour] = useState<string | null>(null);
@@ -58,6 +59,30 @@ export const HourGrid: React.FC<{
 		return null;
 	};
 
+	const getEventsForSlot = useCallback((hour: number, minute: number) => {
+		return props.events.filter(event => {
+			const eventDate = new Date(event.startTime);
+			console.log("getHours", eventDate, eventDate.getHours(), hour, minute)
+			return (
+				eventDate.getHours() === hour &&
+				eventDate.getMinutes() >= minute &&
+				eventDate.getMinutes() < minute + 15
+			);
+		});
+	}, [props.events]);
+
+	const renderEvent = (hour: number, minute: number) => {
+		let eventsForSlot = getEventsForSlot(hour, minute)
+		console.log("eventsForSlot", eventsForSlot,  props.events)
+		if (eventsForSlot.length === 0) return null;
+		const event = eventsForSlot[0];
+		return (
+			<div className={styles["event"]}>
+				{event.name}
+			</div>
+		);
+	};
+
 	if (day.id === 0) {
 		return (
 			<div key={`${hour}-${day.name}`} className={styles['hour-slot-unavailable']}>
@@ -80,7 +105,10 @@ export const HourGrid: React.FC<{
 					className={styles['slot-partition']}
 					key={`${hour}-${day.name}-${index}`}
 				>
-					{selectedHour === `${formatHour(hour, 15 * index)}` ? `${formatHour(hour, 15 * index)}` : ''}
+					<div className={styles['event-container']}>
+						{selectedHour === `${formatHour(hour, 15 * index)}` && <span>{formatHour(hour, 15 * index)}</span>}
+						{renderEvent(hour, 15 * index)}
+					</div>
 				</div>
 			))}
 			{renderPortal()}

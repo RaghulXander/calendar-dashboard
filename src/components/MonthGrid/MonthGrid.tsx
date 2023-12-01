@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import { getDaysInMonth, weekdays } from '../../helpers/calendar';
 import { useCalendarStore } from '../../stores/calendar';
-import { type Month, type Year } from '../../stores/models/calendar.model';
+import { type Month, type Year, Event } from '../../stores/models/calendar.model';
 import styles from './MonthGrid.module.scss';
-
+import { useEventStore } from 'stores/events';
 interface MonthGridProps {
 	minimal?: boolean;
 	selectedYear: Year;
@@ -13,7 +13,8 @@ interface MonthGridProps {
 
 export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 	const [{ state }, calendarActions] = useCalendarStore();
-	console.log('Month', props);
+	const [{ state: eventState }, eventActions] = useEventStore();
+
 	const { selectedYear, selectedMonth } = props;
 
 	// const selectedDate = props.selectedDate ? props.selectedDate : state.currentDate;
@@ -31,6 +32,37 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 			new Date().getFullYear() === selectedYear.id,
 		[selectedMonth.id, selectedYear.id]
 	);
+
+	const isTodayEvent = useCallback(
+		(currentDate: string, date: Date) =>
+			new Date(currentDate).getDate() === new Date(date).getDate() &&
+			new Date(currentDate).getMonth() === selectedMonth.id &&
+			new Date(currentDate).getFullYear() === selectedYear.id,
+		[selectedMonth.id, selectedYear.id]
+	);
+
+
+	const todayEvent = useCallback((date: Date | undefined) => {
+		if (!date) return [];
+		return eventState.events.filter((event) => isTodayEvent(event.date, date))
+	}, [eventState.events, selectedMonth]);
+
+	const renderEvents = useCallback((day: Date) => {
+		const filteredEvents = todayEvent(day);
+		console.log("filteredEvents", filteredEvents)
+
+		const renderEvent = (event: Event) => (
+			<div key={`${event.id}-${event.name.slice(0, 3)}`} className={styles["event"]}>
+			{event.name}
+			</div>
+		);
+
+		return (
+			<div className={styles["event-container"]}>
+			{filteredEvents.map(renderEvent)}
+			</div>
+		);
+	}, [todayEvent]);
 
 	return (
 		<div
@@ -74,7 +106,8 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 										[`${styles.sunday}`]: dayIndex === 0
 									})}
 								>
-									<span>{currentDate}</span>
+									<span className={classNames(styles.currentDate)}>{currentDate}</span>
+									{day && !props.minimal ? renderEvents(day) : null}
 								</div>
 							);
 						})}
