@@ -102,8 +102,8 @@ export const MonthGrid: React.FC<MonthGridProps> = (props) => {
 										[`${styles.sunday}`]: dayIndex === 0
 									})}
 									onClick={() => {
-										if ( typeof day === 'object') {
-											calendarActions.updateCalendarType("Day", new Date(day));
+										if (typeof day === 'object') {
+											calendarActions.updateCalendarType('Day', new Date(day));
 										}
 									}}
 								>

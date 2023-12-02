@@ -64,7 +64,6 @@ export const InvitePopup: React.FC<{ event: Event | undefined; date: Date; time:
 		} else {
 			await eventActions.createEvent({ date, start, end, name: inputData }, onSuccess);
 		}
-		
 	};
 
 	const onDelete = async () => {
