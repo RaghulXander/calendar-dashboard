@@ -29,3 +29,9 @@ https://raghul-moris-demo.netlify.app/
 <img src="./preview/day-edit.png" alt="edit" />
 <figcaption style="text-align=center">This view demonstrate the view of the day layout add/edit modal where the event details can be viewed</figcaption>
 </figure>
+<br/>
+<br/>
+<hr/>
+### Performance 🎉
+<img src="./preview/performance.png" alt="edit" />
+

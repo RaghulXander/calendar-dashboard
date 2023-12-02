@@ -6,9 +6,9 @@ import useClickOutside from '../../hooks/useClickOutside';
 
 interface DropdownOptionsProps {
 	isOpen: boolean;
-	options: string[]; // Assuming options are strings for this example
+	options: string[]
 	handleOptionClick: (option: string) => void;
-	portalRoot: Element | null; // Define portalRoot as Element or null
+	portalRoot: Element | null;
 }
 
 const DropdownOptions: React.FC<DropdownOptionsProps> = ({ isOpen, options, handleOptionClick, portalRoot }) => {
@@ -61,7 +61,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, handleSelect, value }) => 
 	const dropdownRef = useClickOutside(() => {
 		setIsOpen(false);
 	});
-	const portalRoot = document.getElementById('dropdown-portal-root'); // Define a portal root
+	const portalRoot = document.getElementById('dropdown-portal-root');
 
 	return (
 		<div className={styles['dropdown-container']} ref={dropdownRef}>

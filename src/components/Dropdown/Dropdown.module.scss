@@ -1,13 +1,9 @@
-/* Dropdown component styles */
-
 .dropdown-container {
-  /* Dropdown container styles */
   position: relative;
   font-family: Arial, sans-serif;
 }
 
 .selected-value {
-  /* Selected value styles */
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -26,14 +22,13 @@
 
 .options {
   position: absolute;
-  top: 100%; // Position the options below the dropdown
+  top: 100%;
   left: 0;
-  width: 100%; // Full width of the dropdown container
-  background-color: #fff; // Background color
-  border: 1px solid #ccc; // Border for visibility
-  z-index: 9999; // Ensure the options appear above other elements
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 9999;
   
-  // Define styles for individual options
   & .option {
     padding: 6px 10px;
     cursor: pointer;

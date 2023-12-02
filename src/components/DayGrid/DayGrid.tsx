@@ -58,7 +58,7 @@ export const DayGrid: React.FC<{
 				{hours.map((hour, index) => (
 					<div key={index} className={styles.hour}>
 						<div className={styles['hour-slot-time']}>{`${hour}:00`}</div>
-						{days.map((day, dayIndex) => (
+						{days.map((day) => (
 							<HourGrid key={`${hour}-${day.id}`} day={day} hour={hour} events={getEventsForDay(day)} />
 						))}
 					</div>
