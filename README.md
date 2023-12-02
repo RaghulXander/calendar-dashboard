@@ -9,7 +9,8 @@ https://raghul-moris-demo.netlify.app/
 
 # Preview
 <figure style=" display: inline-block;text-align: center;">
-<img src="preview/year.png" alt="year" />
+<img src="https://github.com/RaghulXander/calendar-dashboard/assets/32994803/84c12ac4-1045-4fe3-9320-03ebbfd76541" alt="year" />
+
 <figcaption style="text-align=center">This view demonstrates the view of the year layout with active events represented by dot</figcaption>
 </figure>
 <br/>
