@@ -9,29 +9,29 @@ https://raghul-moris-demo.netlify.app/
 
 # Preview
 <figure style=" display: inline-block;text-align: center;">
-<img src="./preview/year.png" alt="year" />
-<figcaption style="text-align=center">This view demonstrate the view of the year layout with active events represented by dot</figcaption>
+<img src="https://github.com/RaghulXander/calendar-dashboard/blob/deployment/preview/year.png" alt="year" />
+<figcaption style="text-align=center">This view demonstrates the view of the year layout with active events represented by dot</figcaption>
 </figure>
 <br/>
 <figure style=" display: inline-block;text-align: center;">
-<img src="./preview/week-3.png" alt="week" />
-<figcaption style="text-align=center">This view demonstrate the view of the year layout with active events represented by dot</figcaption>
-</figure>
-
-<br/>
-<figure style=" display: inline-block;text-align: center;">
-<img src="./preview/day.png" alt="day" />
-<figcaption style="text-align=center">This view demonstrate the view of the day layout with active events and can be edited by clicking on the event or a new event can be added</figcaption>
+<img src="https://github.com/RaghulXander/calendar-dashboard/blob/deployment/preview/week-3.png" alt="week" />
+<figcaption style="text-align=center">This view demonstrates the view of the year layout with active events represented by dot</figcaption>
 </figure>
 
 <br/>
 <figure style=" display: inline-block;text-align: center;">
-<img src="./preview/day-edit.png" alt="edit" />
-<figcaption style="text-align=center">This view demonstrate the view of the day layout add/edit modal where the event details can be viewed</figcaption>
+<img src="https://github.com/RaghulXander/calendar-dashboard/blob/deployment/preview/day.png" alt="day" />
+<figcaption style="text-align=center">This view demonstrates the view of the day layout with active events and can be edited by clicking on the event or a new event can be added</figcaption>
+</figure>
+
+<br/>
+<figure style=" display: inline-block;text-align: center;">
+<img src="https://github.com/RaghulXander/calendar-dashboard/blob/deployment/preview/day-edit.png" alt="edit" />
+<figcaption style="text-align=center">This view demonstrates the view of the day layout add/edit modal where the event details can be viewed</figcaption>
 </figure>
 <br/>
 <br/>
 <hr/>
-### Performance 🎉
-<img src="./preview/performance.png" alt="edit" />
+# Performance 🎉
+<img src="https://github.com/RaghulXander/calendar-dashboard/blob/deployment/preview/performance.png" alt="performance.png" />
 
